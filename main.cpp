@@ -243,15 +243,23 @@ string  RSA::decipher(string cipherCode){
 
 int main() {
 
-//    ZZ a,e,n;
+
+//    ZZ a,e,n,num;
+//    srand(time(0));
 //
-//    a=9985945465;
+//    a=7549846549686;
 //    e= conv<ZZ>("562897987896775875757575785875785");
-//    n=10077;
+//    n=10987987454654;
+//    int bits = 1024;
 //
-//    cout<<modPow(a,e,n)<<endl;
-
-
+//    Trivium x;
+//    num= x.RandomRange(a,n);
+//    cout<<num;
+//    cout<<"\n"<<countBits(num);
+//
+//    for (int i = 0; i < 20; ++i) {
+//        cout<<x.RandomRange(a,n)<<endl;
+//    }
 
 
      //EMISOR
@@ -269,8 +277,9 @@ int main() {
 
 
     //RECEPTOR GEN
+
     string msj;
-    RSA receptor(1024);
+    RSA receptor(2048);
     cout<<"\nInput your message: "; getline(cin,msj);
     string cipher_msj = receptor.cipher(msj);
     cout<<"\n\nCipher message: "<<cipher_msj;
