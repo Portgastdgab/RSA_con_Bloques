@@ -247,19 +247,15 @@ public:
 
 
 ZZ RandomNumber(ZZ init,ZZ end) {
-    ZZ k = end - init + 1;
-    ZZ num = RandomBnd(k)+init;
-    return num;
+    Trivium x;
+    return  x.RandomRange(init,end);
 }
 
 
 bool MillerRabinTest(ZZ d, ZZ n)
 {
-    Trivium gen;
-
-
     // obtener un numero random en [2..n-2]
-    ZZ a = gen.RandomRange(ZZ(2),n-2);
+    ZZ a = RandomNumber(ZZ(2),n-2);
 
     // X =  a^d mod( n)
     ZZ x = modPow(a, d, n);
@@ -310,7 +306,6 @@ ZZ RandomPrime(int bits){
     do{
         num= x.RandomBits(bits);
     }while(!(isPrime(num,ZZ(5))));
-
     return num;
 }
 

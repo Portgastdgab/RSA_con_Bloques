@@ -66,15 +66,16 @@ RSA::~RSA() {}
 
 void RSA::keysGenerator(int bits) {
     //Hallamos p y q
-    srand(time(NULL));
-    SetSeed(to_ZZ(time(0)));
 
-    p = RandomPrime(bits/2);
-    q = RandomPrime(bits/2);
+    srand(time(NULL));
 
     //Hallamos n
+    do{
+        p = RandomPrime(bits/2);
+        q = RandomPrime(bits/2);
+        n=p*q;
+    }while(countBits(n)!=bits);
 
-    n=p*q;
 
     //Hallamos phi
     phi=(p-1)*(q-1);
@@ -249,7 +250,7 @@ int main() {
      */
 
     string msj;
-    RSA receptor(1024);
+    RSA receptor(2048);
     cout<<"\nInput your message: "; getline(cin,msj);
     string cipher_msj = receptor.cipher(msj);
     cout<<"\n\nCipher message: "<<cipher_msj;
