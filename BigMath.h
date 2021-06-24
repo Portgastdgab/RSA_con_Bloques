@@ -22,7 +22,6 @@ using namespace std;
 
 
 
-/* TOOLS */
 
 string toBinary(ZZ n)
 {
@@ -50,13 +49,6 @@ int countBits(ZZ number)
     }
     return count;
 }
-
-
-
-
-/* END TOOLS*/
-
-
 
 
 
@@ -97,6 +89,9 @@ ZZ binaryGCD(ZZ u,ZZ v){
     return g*b;
 }
 
+bool check(ZZ p ,ZZ q){
+    return (binaryGCD(p,q)==1)? 1:0;
+}
 
 ZZ modPow(ZZ a, ZZ e, ZZ n){
     ZZ A(1);
@@ -123,10 +118,30 @@ void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
     }
 }
 
+
 ZZ inverse(ZZ a,ZZ n){
     ZZ x,y;
     gcdExtended(a,n,x,y);
     return mod(x,n);
+}
+
+ZZ modPow_TRC(ZZ a , ZZ e,ZZ N ,ZZ p, ZZ q){
+    //descomponer
+    ZZ a1,a2,d1,d2,P,P1,P2,q1,q2,D;
+    d1 = mod(e,p-1);
+    d2 = mod(e,q-1);
+    a1 = modPow(a,d1,p);
+    a2 = modPow(a,d2,q);
+    // calculo de P
+    P = p*q;
+    P1 = P/p;
+    P2 = P/q;
+    // q*P=1modp
+    q1 = inverse(P1,p);
+    q2 = inverse(P2,q);
+    // D = a*P*q ..
+    D = mod(mod(a1*P1,P)*q1 + mod(a2*P2,P)*q2,P);
+    return D;
 }
 
 

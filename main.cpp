@@ -14,7 +14,7 @@ using namespace std;
 
 
 
-const string alphabet = "abcdefghijklmnopqrstuvwxyz ";
+const string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
 
 class RSA{
@@ -203,8 +203,7 @@ string  RSA::decipher(string cipherCode){
 
         num = conv<ZZ>(cipherCode.substr(i,N_size).c_str());
 
-
-        C = modPow(num,d,n);
+        C = modPow_TRC(num,d,n,p,q);
 
         int C_size = N_size -1 - ZZtoStr(C).size();
 
@@ -243,51 +242,41 @@ string  RSA::decipher(string cipherCode){
 
 int main() {
 
-
-//    ZZ a,e,n,num;
-//    srand(time(0));
-//
-//    a=7549846549686;
-//    e= conv<ZZ>("562897987896775875757575785875785");
-//    n=10987987454654;
-//    int bits = 1024;
-//
-//    Trivium x;
-//    num= x.RandomRange(a,n);
-//    cout<<num;
-//    cout<<"\n"<<countBits(num);
-//
-//    for (int i = 0; i < 20; ++i) {
-//        cout<<x.RandomRange(a,n)<<endl;
-//    }
-
-
-     //EMISOR
-    /*
-    string msj;
-    ZZ e,n;
-    cout<<"\nInput e: "; cin>>e;
-    cout<<"\nInput n: "; cin>>n;
-    RSA emisor(e,n);
-    cin.ignore();
-    cout<<"\nInput your message: "; getline(cin,msj);
-    cout<<"\n\nDecipher message: "<<emisor.cipher(msj)<<"\n\n";
-*/
-
-
-
     //RECEPTOR GEN
+    /*
+     * PROGRAMA DE INICIO
+     * genera claves
+     */
 
     string msj;
-    RSA receptor(2048);
+    RSA receptor(1024);
     cout<<"\nInput your message: "; getline(cin,msj);
     string cipher_msj = receptor.cipher(msj);
     cout<<"\n\nCipher message: "<<cipher_msj;
     cout<<"\n\nDecipher message: "<<receptor.decipher(cipher_msj)<<"\n\n\n";
 
 
+     //EMISOR
+     /*
+      * PROGRAMA para enviar mensajes a terceros
+      */
+
+//    string msj;
+//    ZZ e,n;
+//    cout<<"\nInput e: "; cin>>e;
+//    cout<<"\nInput n: "; cin>>n;
+//    RSA emisor(e,n);
+//    cin.ignore();
+//    cout<<"\nInput your message: "; getline(cin,msj);
+//    cout<<"\n\nDecipher message: "<<emisor.cipher(msj)<<"\n\n";
+
+
+
+
+
 
 /*
+ *  COMPROBAR RESULTADOS
     //RECEPTOR DECIPHER
     string ciphercode;
     ZZ e,d,n;
@@ -299,7 +288,6 @@ int main() {
     cout<<"\nInput your cipher message: "; getline(cin,ciphercode);
     cout<<"\n\nDecipher message: "<<receptor.decipher(ciphercode)<<"\n\n\n";
 */
-
 
 
 
