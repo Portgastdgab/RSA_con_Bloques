@@ -8,19 +8,19 @@
 using namespace NTL;
 using namespace std;
 
-ZZ mod(ZZ, ZZ);
+ZZ mod(ZZ, ZZ);                         //modulo
 
-ZZ modPow(ZZ, ZZ, ZZ);
+ZZ modPow(ZZ, ZZ, ZZ);                  //exponenciacion modular
 
-ZZ gcd(ZZ, ZZ);
+ZZ gcd_bin(ZZ&, ZZ&);                   //MCD binario
 
-void gcdExtended(ZZ, ZZ, ZZ&, ZZ&);
+void gcdExtended(ZZ, ZZ, ZZ&, ZZ&);     //Algoritmo extendido de Euclides
 
-ZZ inverse(ZZ, ZZ);
+ZZ inverse(ZZ, ZZ);                     //Inversa
 
-ZZ RandomNumber(ZZ, ZZ);
+ZZ RandomNumber(ZZ, ZZ);                //Numero aleatorio
 
-bool MillerRabinTest(ZZ, ZZ);
+bool MillerRabinTest(ZZ, ZZ);           //Test de Miller Rabin (Primalidad)
 
 bool isPrime(ZZ, ZZ);
 

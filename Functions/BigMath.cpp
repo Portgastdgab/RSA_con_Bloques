@@ -1,9 +1,8 @@
 #include "BigMath.h"
 
-ZZ mod(ZZ a, ZZ n) {
-    ZZ r(a - n * (a / n));
-    if (r < 0)
-        r = a - n * ((a / n) - 1);
+ZZ mod(ZZ a, ZZ n){
+    ZZ r = a-n*(a/n);
+    r = r+(r<0)*n;
     return r;
 }
 
@@ -23,14 +22,31 @@ ZZ modPow(ZZ a, ZZ n, ZZ m) {
     return exp;
 }
 
-ZZ gcd(ZZ D, ZZ d) {
-    ZZ r = D - (d * (D / d));
-    while (r != 0) {
-        D = d;
-        d = r;
-        r = D - (d * (D / d));
+ZZ gcd_bin(ZZ &u,ZZ &v){
+    ZZ t, g, a, b;
+    g=1;
+    a=abs(u);
+    b=abs(v);
+    while(a%2==0 && b%2==0){
+        a=a/2;
+        b=b/2;
+        g=2*g;
     }
-    return d;
+    while(a!=0){
+        if(a%2==0){
+            a=a/2;
+        }else if(b%2==0){
+            b=b/2;
+        }else{
+            t=abs(a-b)/2;
+            if(a>= b){
+                a=t;
+            }else{
+                b=t;
+            }
+        }
+    }
+    return g*b;
 }
 
 void gcdExtended(ZZ a, ZZ b, ZZ &x, ZZ &y) {
@@ -46,7 +62,7 @@ void gcdExtended(ZZ a, ZZ b, ZZ &x, ZZ &y) {
 }
 
 ZZ inverse(ZZ a, ZZ n) {
-    if (gcd(a, n) == 1) {
+    if (gcd_bin(a, n) == 1) {
         ZZ x, y;
         gcdExtended(a, n, x, y);
         return mod(x, n);
