@@ -259,14 +259,14 @@ int main() {
 
 
     //RECEPTOR GEN
-    /*
+
     string msj;
     RSA receptor(1024);
     cout<<"\nInput your message: "; getline(cin,msj);
     string cipher_msj = receptor.cipher(msj);
     cout<<"\n\nCipher message: "<<cipher_msj;
     cout<<"\n\nDecipher message: "<<receptor.decipher(cipher_msj)<<"\n\n\n";
-*/
+
 
 
 /*

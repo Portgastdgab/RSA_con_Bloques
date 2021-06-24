@@ -1,5 +1,5 @@
 //
-// Created by misash on 27/05/21.
+// Created by misash
 //
 
 #ifndef RSA_BIGMATH_H
@@ -47,14 +47,34 @@ ZZ modPow(ZZ a ,ZZ n,ZZ m){
 }
 
 
-ZZ gcd(ZZ D,ZZ d){
-    ZZ r = D-(d*(D/d));
-    while(r != 0){
-        D=d; d=r;
-        r = D-(d*(D/d));
+
+ZZ binaryGCD(ZZ u,ZZ v){
+    ZZ t, g, a, b;
+    g=1;
+    a=abs(u);
+    b=abs(v);
+    while((a&1)==0 && (b&1)==0){
+        a>>=1;
+        b>>=1;
+        g<<=1;
     }
-    return d;
+    while(a!=0){
+        if((a&1)==0){
+            a>>=1;
+        }else if((b&1)==0){
+            b>>=1;
+        }else{
+            t=abs(a-b)>>1;
+            if(a>= b){
+                a=t;
+            }else{
+                b=t;
+            }
+        }
+    }
+    return g*b;
 }
+
 
 
 void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
@@ -70,7 +90,7 @@ void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
 }
 
 ZZ inverse(ZZ a,ZZ n){
-    if(gcd(a,n) == 1){
+    if(binaryGCD(a,n) == 1){
         ZZ x,y;
         gcdExtended(a,n,x,y);
         return mod(x,n);
