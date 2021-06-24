@@ -21,13 +21,12 @@ using namespace std;
 
 
 
-ZZ mod(ZZ a,ZZ n){
-    ZZ r( a - n*(a/n) );
-    if(r<0)
-        r=a-n*((a/n)-1);
+
+ZZ mod(ZZ a, ZZ n){
+    ZZ r = a-n*(a/n);
+    r = r+(r<0)*n;
     return r;
 }
-
 
 
 ZZ modPow(ZZ a ,ZZ n,ZZ m){
@@ -45,7 +44,6 @@ ZZ modPow(ZZ a ,ZZ n,ZZ m){
 
     return exp;
 }
-
 
 
 ZZ binaryGCD(ZZ u,ZZ v){
@@ -74,7 +72,6 @@ ZZ binaryGCD(ZZ u,ZZ v){
     }
     return g*b;
 }
-
 
 
 void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {

@@ -82,7 +82,7 @@ void RSA::keysGenerator(int bits) {
     // 1 < e < phi
     do{
         e=RandomNumber(ZZ(2),phi-1);
-    }while(gcd(e,phi) !=1);
+    }while(binaryGCD(e,phi) !=1);
 
     //hallar d
     // 1 < d < phi -> inversa de gcd(e,phi)
@@ -259,7 +259,6 @@ int main() {
 
 
     //RECEPTOR GEN
-
     string msj;
     RSA receptor(1024);
     cout<<"\nInput your message: "; getline(cin,msj);
