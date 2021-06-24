@@ -243,6 +243,16 @@ string  RSA::decipher(string cipherCode){
 
 int main() {
 
+//    ZZ a,e,n;
+//
+//    a=9985945465;
+//    e= conv<ZZ>("562897987896775875757575785875785");
+//    n=10077;
+//
+//    cout<<modPow(a,e,n)<<endl;
+
+
+
 
      //EMISOR
     /*

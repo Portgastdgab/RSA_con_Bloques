@@ -12,6 +12,7 @@
 #include <NTL/mat_ZZ.h>
 #include <string>
 #include<sstream>
+#include <NTL/vector.h>
 
 
 
@@ -21,6 +22,47 @@ using namespace std;
 
 
 
+/* TOOLS */
+
+string toBinary(ZZ n)
+{
+    string r;
+    while (n != 0){
+        r += ( n % 2 == 0 ? "0" : "1" );
+        n /= 2;
+    }
+    return r;
+}
+
+string ZZtoStr(ZZ a){
+    stringstream temp;
+    temp<<a;
+    return temp.str();
+}
+
+int countBits(ZZ number)
+{
+    unsigned int count = 0;
+    while (number != 0)
+    {
+        count++;
+        number >>= 1;
+    }
+    return count;
+}
+
+
+
+
+/* END TOOLS*/
+
+
+
+
+
+/*-----------ALGORITHMS--------------------*/
+
+
 
 ZZ mod(ZZ a, ZZ n){
     ZZ r = a-n*(a/n);
@@ -28,22 +70,6 @@ ZZ mod(ZZ a, ZZ n){
     return r;
 }
 
-
-ZZ modPow(ZZ a ,ZZ n,ZZ m){
-
-    ZZ exp (1);
-    ZZ x = mod(a,m);
-
-    while(n>0){
-        if(mod(n, ZZ(2)) == 1)
-            exp = mod(exp*x,m);
-
-        x = mod(x*x,m);
-        n/=2;
-    }
-
-    return exp;
-}
 
 
 ZZ binaryGCD(ZZ u,ZZ v){
@@ -73,6 +99,19 @@ ZZ binaryGCD(ZZ u,ZZ v){
     return g*b;
 }
 
+//left_to_right_binary
+ZZ modPow(ZZ a, ZZ e, ZZ n){
+    ZZ A(1);
+    string bin = toBinary(e);
+    for (int i = bin.size(); i != -1; i--){
+        A = mod(A * A, n);
+        if(bin[i] == '1'){
+            A = mod(A * a, n);
+        }
+    }
+    return A;
+}
+
 
 void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
     x = ZZ(1), y = ZZ(0);
@@ -87,13 +126,9 @@ void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
 }
 
 ZZ inverse(ZZ a,ZZ n){
-    if(binaryGCD(a,n) == 1){
-        ZZ x,y;
-        gcdExtended(a,n,x,y);
-        return mod(x,n);
-    }
-    cout<<"falla";
-    return ZZ(-1);
+    ZZ x,y;
+    gcdExtended(a,n,x,y);
+    return mod(x,n);
 }
 
 
@@ -166,22 +201,6 @@ ZZ RandomPrime(int bits){
 }
 
 
-string ZZtoStr(ZZ a){
-    stringstream temp;
-    temp<<a;
-    return temp.str();
-}
-
-int countBits(ZZ number)
-{
-    unsigned int count = 0;
-    while (number != 0)
-    {
-        count++;
-        number >>= 1;
-    }
-    return count;
-}
 
 
 
