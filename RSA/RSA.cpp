@@ -37,23 +37,20 @@ void RSA::info() {
 void RSA::keysGenerator(int bits) {
     //Hallamos p y q
     srand(time(NULL));
-    SetSeed(to_ZZ(time(0)));
-
-    p = RandomPrime(bits / 2);
-    q = RandomPrime(bits / 2);
 
     //Hallamos n
-
-    n = p * q;
+    do {
+        p = RandomPrime(bits / 2);
+        q = RandomPrime(bits / 2);
+        n = p * q;
+    } while (countBits(n) != bits);
 
     //Hallamos phi
     phi = (p - 1) * (q - 1);
-
     // 1 < e < phi
     do {
         e = RandomNumber(ZZ(2), phi - 1);
     } while (binaryGCD(e, phi) != 1);
-
     //hallar d
     // 1 < d < phi -> inversa de gcd(e,phi)
     d = inverse(e, phi);
@@ -152,7 +149,7 @@ void RSA::decipher(string cipherCode) {
         num = conv<ZZ>(cipherCode.substr(i, N_size).c_str());
 
 
-        C = modPow(num, d, n);
+        C = modPow_TRC(num, d, n, p, q);
 
         int C_size = N_size - 1 - ZZtoStr(C).size();
 
