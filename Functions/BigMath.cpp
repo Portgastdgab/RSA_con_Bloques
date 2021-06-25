@@ -22,7 +22,7 @@ ZZ modPow(ZZ a, ZZ n, ZZ m) {
     return exp;
 }
 
-ZZ gcd_bin(ZZ &u,ZZ &v){
+ZZ binaryGCD(ZZ &u,ZZ &v){
     ZZ t, g, a, b;
     g=1;
     a=abs(u);
@@ -62,7 +62,7 @@ void gcdExtended(ZZ a, ZZ b, ZZ &x, ZZ &y) {
 }
 
 ZZ inverse(ZZ a, ZZ n) {
-    if (gcd_bin(a, n) == 1) {
+    if (binaryGCD(a, n) == 1) {
         ZZ x, y;
         gcdExtended(a, n, x, y);
         return mod(x, n);

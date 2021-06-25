@@ -12,7 +12,7 @@ ZZ mod(ZZ, ZZ);                         //modulo
 
 ZZ modPow(ZZ, ZZ, ZZ);                  //exponenciacion modular
 
-ZZ gcd_bin(ZZ&, ZZ&);                   //MCD binario
+ZZ binaryGCD(ZZ&, ZZ&);                   //MCD binario
 
 void gcdExtended(ZZ, ZZ, ZZ&, ZZ&);     //Algoritmo extendido de Euclides
 
