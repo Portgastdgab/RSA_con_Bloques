@@ -2,7 +2,7 @@
 
 int main() {
 
-    RSA receptor(1024);                         //El receptor indica el numero de bits para generar claves
+    RSA receptor(2048);                         //El receptor indica el numero de bits para generar claves
     RSA emisor(receptor.e, receptor.n); //El emisor que mandara los mensajes recibe las claves generadas
     emisor.message = "Algebra Abstracta";       //El emisor escribe su mensaje
     emisor.cipher(emisor.message);              //El emisor cifra su mensaje, el cifrado se almacena en el atributo crypted letter

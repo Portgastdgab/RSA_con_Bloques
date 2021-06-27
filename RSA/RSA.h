@@ -12,8 +12,7 @@ private:
 
     void info();
 
-    string alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
+    string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890";
 
 public:
     ZZ e, n;
