@@ -3,7 +3,7 @@
 string toBinary(ZZ n) {
     string r;
     while (n != 0) {
-        r += (n % 2 == 0 ? "0" : "1");
+        r += (mod(n , ZZ(2)) == 0 ? "0" : "1");
         n /= 2;
     }
     return r;
@@ -30,11 +30,29 @@ ZZ mod(ZZ a, ZZ n) {
     return r;
 }
 
-void Trivium::generate_Key_and_IV() {
+ZZ getSystemTime(){
+    ZZ  moment = ZZ(std::chrono::steady_clock::now().time_since_epoch().count());
+    return abs(moment);
+}
+
+ZZ seed(int iter) {
+    ZZ x, x0, a, b, n;
+    x0 = getSystemTime();
+    a = getSystemTime();
+    b = getSystemTime();
+    n = getSystemTime();
+    //Linear congruential Method
+    for (int i = 0; i < iter; i++) {
+        x = mod(mod(a * x0, n) + b, n);
+        x0 = x;
+    }
+    return x;
+}
+
+void Trivium::generate_Key_and_IV(){
     for (int i = 0; i < 80; i++) {
-        ZZ ran(rand());
-        IV[i] = to_int(mod(ran, ZZ(2)));
-        key[i] = to_int(mod(ran, ZZ(2)));
+        IV[i] = to_int(mod(seed(3),ZZ(2)));
+        key[i] = to_int(mod(seed(11),ZZ(2)));
     }
 }
 
@@ -131,31 +149,32 @@ ZZ modPow(ZZ a, ZZ e, ZZ n) {
     return A;
 }
 
-ZZ binaryGCD(ZZ &u, ZZ &v) {
+
+ZZ binaryGCD(ZZ u,ZZ v){
     ZZ t, g, a, b;
-    g = 1;
-    a = abs(u);
-    b = abs(v);
-    while (a % 2 == 0 && b % 2 == 0) {
-        a = a / 2;
-        b = b / 2;
-        g = 2 * g;
+    g=1;
+    a=abs(u);
+    b=abs(v);
+    while((a&1)==0 && (b&1)==0){
+        a>>=1;
+        b>>=1;
+        g<<=1;
     }
-    while (a != 0) {
-        if (a % 2 == 0) {
-            a = a / 2;
-        } else if (b % 2 == 0) {
-            b = b / 2;
-        } else {
-            t = abs(a - b) / 2;
-            if (a >= b) {
-                a = t;
-            } else {
-                b = t;
+    while(a!=0){
+        if((a&1)==0){
+            a>>=1;
+        }else if((b&1)==0){
+            b>>=1;
+        }else{
+            t=abs(a-b)>>1;
+            if(a>= b){
+                a=t;
+            }else{
+                b=t;
             }
         }
     }
-    return g * b;
+    return g*b;
 }
 
 bool check(ZZ p, ZZ q) {

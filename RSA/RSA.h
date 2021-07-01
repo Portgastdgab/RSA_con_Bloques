@@ -5,7 +5,7 @@ typedef long long int ll;
 class RSA {
 
 private:
-    ZZ d, p, q, phi;
+    ZZ d, p, q;
     int bits;
 
     void keysGenerator(int);
