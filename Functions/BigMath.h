@@ -4,6 +4,7 @@
 #include <NTL/mat_ZZ.h>
 #include <string>
 #include<sstream>
+#include <chrono>
 
 using namespace NTL;
 using namespace std;

@@ -30,11 +30,31 @@ ZZ mod(ZZ a, ZZ n) {
     return r;
 }
 
+
+ZZ getSystemTime(){
+    ZZ  moment = ZZ(std::chrono::steady_clock::now().time_since_epoch().count());
+    return abs(moment);
+}
+
+ZZ seed(int iter){
+    ZZ x,x0,a,b,n;
+    x0=getSystemTime();
+    a=getSystemTime();
+    b=getSystemTime();
+    n=getSystemTime();
+    //Linear congruential Method
+    for(int i=0;i<iter;i++){
+        x = mod(mod(a*x0,n) + b,n);
+        x0=x;
+    }
+    return x;
+}
+
+
 void Trivium::generate_Key_and_IV() {
-    for (int i = 0; i < 80; i++) {
-        ZZ ran(rand());
-        IV[i] = to_int(mod(ran, ZZ(2)));
-        key[i] = to_int(mod(ran, ZZ(2)));
+    for(int i = 0; i < 80; i++) {
+        IV[i] = to_int(mod(seed(11),ZZ(2)));
+        IV[i] = to_int(mod(seed(5),ZZ(2)));
     }
 }
 
