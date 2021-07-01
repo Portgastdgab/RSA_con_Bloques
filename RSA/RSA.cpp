@@ -27,7 +27,6 @@ void RSA::info() {
     cout << "\n\np: " << p;
     cout << "\n\nq: " << q;
     cout << "\n\nn: " << n;
-    cout << "\n\nphi: " << phi;
     cout << "\n\ne: " << e;
     cout << "\n\nd: " << d;
     cout << "\n___________________________________________\n";
@@ -46,11 +45,12 @@ void RSA::keysGenerator(int bits) {
     } while (countBits(n) != bits);
 
     //Hallamos phi
-    phi = (p - 1) * (q - 1);
+    ZZ phi = (p - 1) * (q - 1);
     // 1 < e < phi
     do {
         e = RandomNumber(ZZ(2), phi - 1);
-    } while (binaryGCD(e, phi) != 1);
+    } while (check(e,phi) != 1);
+
     //hallar d
     // 1 < d < phi -> inversa de gcd(e,phi)
     d = inverse(e, phi);

@@ -4,6 +4,7 @@
 #include <NTL/mat_ZZ.h>
 #include <string>
 #include<sstream>
+#include <chrono>
 
 using namespace NTL;
 using namespace std;
@@ -15,6 +16,10 @@ string ZZtoStr(ZZ);
 int countBits(ZZ);
 
 ZZ mod(ZZ, ZZ);                         //modulo
+
+ZZ getSystemTime();                     //SystemTime
+
+ZZ seed(int);                           //Seed
 
 class Trivium {
 
@@ -45,7 +50,7 @@ public:
 
 ZZ modPow(ZZ, ZZ, ZZ);                  //exponenciacion modular
 
-ZZ binaryGCD(ZZ &, ZZ &);                   //MCD binario
+ZZ binaryGCD(ZZ , ZZ );                   //MCD binario
 
 bool check(ZZ, ZZ);
 
