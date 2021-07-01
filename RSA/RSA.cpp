@@ -53,7 +53,11 @@ void RSA::keysGenerator(int bits) {
     } while (binaryGCD(e, phi) != 1);
     //hallar d
     // 1 < d < phi -> inversa de gcd(e,phi)
-    d = inverse(e, phi);
+
+    if(check(e,phi)){
+        d = inverse(e, phi);
+    }
+
 
     info();                               //Mostrar numero de bits y claves generadas
 }

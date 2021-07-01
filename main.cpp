@@ -2,10 +2,6 @@
 
 
 
-
-
-
-
 int main() {
 
     RSA receptor(1024);                         //El receptor indica el numero de bits para generar claves
