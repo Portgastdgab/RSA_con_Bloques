@@ -3,7 +3,7 @@
 #include <time.h>
 #include <NTL/mat_ZZ.h>
 #include <string>
-#include<sstream>
+#include <sstream>
 #include <chrono>
 
 using namespace NTL;
@@ -67,3 +67,6 @@ bool MillerRabinTest(ZZ, ZZ);           //Test de Miller Rabin (Primalidad)
 bool isPrime(ZZ, ZZ);
 
 ZZ RandomPrime(int);
+
+void blocks(ZZ, string &, int, int);
+

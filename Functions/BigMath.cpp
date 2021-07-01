@@ -272,3 +272,15 @@ ZZ RandomPrime(int bits) {
 
     return num;
 }
+
+void blocks(ZZ C, string &text, int N_size, int C_size) {
+    if (ZZtoStr(C).size() < N_size) {
+
+        string zeros(C_size, '0');
+        zeros += ZZtoStr(C);
+        text += zeros;
+
+    } else {
+        text += ZZtoStr(C);
+    }
+}

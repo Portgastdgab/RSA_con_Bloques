@@ -77,18 +77,10 @@ void RSA::cipher(string plaintext) {
 
     for (int i = 0; i < message_size; i++) {
 
-        int P = alphabet.find(plaintext[i]);
-        int P_size = ZZtoStr(ZZ(Extra - 1)).size() - to_string(P).size();
+        ZZ P = ZZ(alphabet.find(plaintext[i]));
+        int P_size = ZZtoStr(ZZ(Extra - 1)).size() - ZZtoStr(P).size();
 
-        if (to_string(P).size() < MS_letter) {
-
-            string zeros(P_size, '0');
-            zeros += to_string(P);
-            trans += zeros;
-
-        } else {
-            trans += to_string(P);
-        }
+        blocks(P, trans, N_size, P_size);
 
     }
 
@@ -112,19 +104,12 @@ void RSA::cipher(string plaintext) {
 
         int C_size = N_size - ZZtoStr(C).size();
 
-        if (ZZtoStr(C).size() < N_size) {
-
-            string zeros(C_size, '0');
-            zeros += ZZtoStr(C);
-            cipherCode += zeros;
-
-        } else {
-            cipherCode += ZZtoStr(C);
-        }
-
+        blocks(C, cipherCode, N_size, C_size);
 
     }
     crypted_letter = cipherCode;
+    message = "";
+    plaintext = "";
 }
 
 
@@ -153,16 +138,7 @@ void RSA::decipher(string cipherCode) {
 
         int C_size = N_size - 1 - ZZtoStr(C).size();
 
-        if (ZZtoStr(C).size() < N_size - 1) {
-
-            string zeros(C_size, '0');
-            zeros += ZZtoStr(C);
-            trans += zeros;
-
-        } else {
-            trans += ZZtoStr(C);
-        }
-
+        blocks(C, trans, N_size, C_size);
     }
 
 
@@ -174,7 +150,6 @@ void RSA::decipher(string cipherCode) {
 
         if (num < Extra)
             plaintext += alphabet[to_int(num)];
-
 
     }
     message = plaintext;
