@@ -17,6 +17,10 @@ int countBits(ZZ);
 
 ZZ mod(ZZ, ZZ);                         //modulo
 
+ZZ getSystemTime();                     //SystemTime
+
+ZZ seed(int);                           //Seed
+
 class Trivium {
 
 private:
@@ -46,7 +50,7 @@ public:
 
 ZZ modPow(ZZ, ZZ, ZZ);                  //exponenciacion modular
 
-ZZ binaryGCD(ZZ &, ZZ &);                   //MCD binario
+ZZ binaryGCD(ZZ , ZZ );                   //MCD binario
 
 bool check(ZZ, ZZ);
 

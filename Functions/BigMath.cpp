@@ -151,31 +151,31 @@ ZZ modPow(ZZ a, ZZ e, ZZ n) {
     return A;
 }
 
-ZZ binaryGCD(ZZ &u, ZZ &v) {
+ZZ binaryGCD(ZZ u,ZZ v){
     ZZ t, g, a, b;
-    g = 1;
-    a = abs(u);
-    b = abs(v);
-    while (a % 2 == 0 && b % 2 == 0) {
-        a = a / 2;
-        b = b / 2;
-        g = 2 * g;
+    g=1;
+    a=abs(u);
+    b=abs(v);
+    while((a&1)==0 && (b&1)==0){
+        a>>=1;
+        b>>=1;
+        g<<=1;
     }
-    while (a != 0) {
-        if (a % 2 == 0) {
-            a = a / 2;
-        } else if (b % 2 == 0) {
-            b = b / 2;
-        } else {
-            t = abs(a - b) / 2;
-            if (a >= b) {
-                a = t;
-            } else {
-                b = t;
+    while(a!=0){
+        if((a&1)==0){
+            a>>=1;
+        }else if((b&1)==0){
+            b>>=1;
+        }else{
+            t=abs(a-b)>>1;
+            if(a>= b){
+                a=t;
+            }else{
+                b=t;
             }
         }
     }
-    return g * b;
+    return g*b;
 }
 
 bool check(ZZ p, ZZ q) {

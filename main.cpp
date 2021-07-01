@@ -8,9 +8,6 @@
 
 int main() {
 
-
-
-
     RSA receptor(1024);                         //El receptor indica el numero de bits para generar claves
     //RSA emisor(receptor.e, receptor.n); //El emisor que mandara los mensajes recibe las claves generadas
     //emisor.message = "Deja ya de estar rezando y dandote golpes en el pecho Lo que quiero que hagas es que salgas al mundo a disfrutar de tu vida Quiero que goces, que cantes, que te diviertas y que disfrutes de todo lo que he hecho para ti.";
@@ -22,6 +19,7 @@ int main() {
     receptor.show_decryption();                 //Muestra el decifrado almacenado en message
 
     return 0;
+
 }
 
 
