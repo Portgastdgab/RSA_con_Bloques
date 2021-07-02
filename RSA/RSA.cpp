@@ -13,8 +13,9 @@ RSA::RSA(ZZ _e, ZZ _n) {
 }
 
 //RECEPTOR
-RSA::RSA(ZZ _e, ZZ _d, ZZ _n) {
-    e = _e;
+RSA::RSA(ZZ _p, ZZ _q, ZZ _d, ZZ _n) {
+    p = _p;
+    q = _q;
     d = _d;
     n = _n;
 }

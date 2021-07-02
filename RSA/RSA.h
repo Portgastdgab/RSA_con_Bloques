@@ -19,11 +19,9 @@ public:
     string message;
     string crypted_letter;
 
-    RSA();
-
     RSA(int);
 
-    RSA(ZZ _e, ZZ _d, ZZ _n); //e,d,n
+    RSA(ZZ _p, ZZ _q, ZZ _d, ZZ _n); //e,d,n
     RSA(ZZ _e, ZZ n_);
 
     ~RSA();
