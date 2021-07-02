@@ -3,7 +3,7 @@
 //RECEPTOR N BITS
 RSA::RSA(int _bits) {
     bits = _bits;
-    keysGenerator(_bits);
+    keysGenerator();
 }
 
 //EMISOR
@@ -34,7 +34,7 @@ void RSA::info() {
 
 }
 
-void RSA::keysGenerator(int bits) {
+void RSA::keysGenerator() {
     //Hallamos p y q
     srand(time(NULL));
 
@@ -58,61 +58,6 @@ void RSA::keysGenerator(int bits) {
 
     info();                               //Mostrar numero de bits y claves generadas
 }
-
-
-void RSA::cipher(string plaintext) {
-
-    string cipherCode, trans, block;
-
-    int message_size, N_size, Extra, MS_letter;
-
-    message_size = plaintext.size();
-    N_size = ZZtoStr(n).size();
-    Extra = alphabet.size();
-    MS_letter = ZZtoStr(ZZ(Extra - 1)).size();
-
-    string plus(to_string(Extra));
-
-
-    //TRANSFORMAR EN SECUENCIA DE DIGITOS
-
-    for (int i = 0; i < message_size; i++) {
-
-        ZZ P = ZZ(alphabet.find(plaintext[i]));
-        int P_size = ZZtoStr(ZZ(Extra - 1)).size() - ZZtoStr(P).size();
-
-        blocks(P, trans, N_size, P_size);
-
-    }
-
-
-    while (mod(ZZ(trans.size()), ZZ(N_size - 1)) != 0 || mod(ZZ(trans.size()), ZZ(MS_letter)) != 0) {
-        trans += plus;
-    }
-
-
-
-    //DIVIDIR EN BLOQUES
-
-    ZZ C, num;
-
-    for (int i = 0; i < trans.size(); i += N_size - 1) {
-
-        num = conv<ZZ>(trans.substr(i, N_size - 1).c_str());
-
-        C = modPow(num, e, n);
-
-
-        int C_size = N_size - ZZtoStr(C).size();
-
-        blocks(C, cipherCode, N_size, C_size);
-
-    }
-    crypted_letter = cipherCode;
-    message = "";
-    plaintext = "";
-}
-
 
 void RSA::decipher(string cipherCode) {
 
@@ -139,7 +84,7 @@ void RSA::decipher(string cipherCode) {
 
         int C_size = N_size - 1 - ZZtoStr(C).size();
 
-        blocks(C, trans, N_size, C_size);
+        reagroup(C, trans, N_size, C_size);
     }
 
 
@@ -155,6 +100,62 @@ void RSA::decipher(string cipherCode) {
     }
     message = plaintext;
 }
+
+
+void RSA::cipher(string plaintext ){
+
+   plaintext = blocks(plaintext);
+
+    string cipherCode;
+    ZZ C, num;
+    int N_size = ZZtoStr(n).size();
+
+    for (int i = 0; i < plaintext.size(); i += N_size - 1) {
+        num = conv<ZZ>(plaintext.substr(i, N_size - 1).c_str());
+        C = modPow(num, e, n);
+        int C_size = N_size - ZZtoStr(C).size();
+        reagroup(C, cipherCode, N_size, C_size);
+    }
+
+    crypted_letter = cipherCode;
+    message = "";
+    plaintext = "";
+}
+
+
+
+//
+//string RSA::firmaCipher(string msg,ZZ _e,ZZ _n){
+//
+//}
+
+
+string RSA:: blocks(string msg){
+
+    string cipherCode, trans, block;
+    int  N_size, Extra, MS_letter;
+    N_size = ZZtoStr(n).size();
+    Extra = alphabet.size();
+    MS_letter = ZZtoStr(ZZ(Extra - 1)).size();
+    string plus(to_string(Extra));
+
+    //TRANSFORMAR EN SECUENCIA DE DIGITOS
+
+    for (int i = 0; i < msg.size(); i++) {
+        ZZ P = ZZ(alphabet.find(msg[i]));
+        int P_size = ZZtoStr(ZZ(Extra - 1)).size() - ZZtoStr(P).size();
+        reagroup(P, trans, N_size, P_size);
+    }
+
+    //AÑADIR DIGITO EXTRA
+    while (mod(ZZ(trans.size()), ZZ(N_size - 1)) != 0 || mod(ZZ(trans.size()), ZZ(MS_letter)) != 0) {
+        trans += plus;
+    }
+    return trans;
+
+}
+
+
 
 void RSA::show_encryption() {
     cout << endl << "Mensaje cifrado: " << crypted_letter << endl;

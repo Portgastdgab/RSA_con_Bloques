@@ -273,7 +273,7 @@ ZZ RandomPrime(int bits) {
     return num;
 }
 
-void blocks(ZZ C, string &text, int N_size, int C_size) {
+void reagroup(ZZ C, string &text, int N_size, int C_size) {
     if (ZZtoStr(C).size() < N_size) {
 
         string zeros(C_size, '0');

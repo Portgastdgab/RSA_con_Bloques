@@ -68,5 +68,5 @@ bool isPrime(ZZ, ZZ);
 
 ZZ RandomPrime(int);
 
-void blocks(ZZ, string &, int, int);
+void reagroup(ZZ, string &, int, int);
 

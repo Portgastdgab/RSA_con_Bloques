@@ -8,11 +8,12 @@ private:
     ZZ d, p, q;
     int bits;
 
-    void keysGenerator(int);
+    void keysGenerator();
 
     void info();
 
     string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890";
+//    string alphabet="abcdefghijklmnopqrstuvwxyz ";
 
 public:
     ZZ e, n;
@@ -26,13 +27,18 @@ public:
 
     ~RSA();
 
-    void cipher(string);            //Cifra el mensaje, el cifrado se almacena en el atributo crypted_letter
+    void cipher(string);                //Cifra el mensaje, el cifrado se almacena en el atributo crypted_letter
 
-    void decipher(string);          //Descifrar el mensaje, el descifrado se almacena en el atributo message
+    void decipher(string);              //Descifrar el mensaje, el descifrado se almacena en el atributo message
 
-    void show_encryption();         //muestra el atributo crypted_letter
+    void show_encryption();             //muestra el atributo crypted_letter
 
-    void show_decryption();         //muestra el atributo message
+    void show_decryption();             //muestra el atributo message
 
+    string firmaCipher(string ,ZZ,ZZ);
+
+    string blocks(string);
+
+//    void cifrado(string ,ZZ ,ZZ );
 
 };
