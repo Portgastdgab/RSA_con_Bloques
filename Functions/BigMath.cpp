@@ -1,5 +1,10 @@
 #include "BigMath.h"
 
+
+void Swap(ZZ &x,ZZ &y){
+    ZZ aux(x);x = y; y = aux;
+}
+
 string toBinary(ZZ n) {
     string r;
     while (n != 0) {
@@ -273,7 +278,7 @@ ZZ RandomPrime(int bits) {
     return num;
 }
 
-void blocks(ZZ C, string &text, int N_size, int C_size) {
+void reagroup(ZZ C, string &text, int N_size, int C_size) {
     if (ZZtoStr(C).size() < N_size) {
 
         string zeros(C_size, '0');
