@@ -1,6 +1,9 @@
 #include "../Functions/BigMath.h"
+#include "fstream"
 
 typedef long long int ll;
+
+string fileOpen(string);
 
 class RSA {
 
