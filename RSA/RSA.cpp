@@ -56,7 +56,7 @@ void RSA::keysGenerator(int bits) {
     // 1 < d < phi -> inversa de gcd(e,phi)
     d = inverse(e, phi);
 
-    info();                               //Mostrar numero de bits y claves generadas
+    //info();                               //Mostrar numero de bits y claves generadas
 }
 
 
