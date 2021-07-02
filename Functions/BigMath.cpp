@@ -1,5 +1,10 @@
 #include "BigMath.h"
 
+
+void Swap(ZZ &x,ZZ &y){
+    ZZ aux(x);x = y; y = aux;
+}
+
 string toBinary(ZZ n) {
     string r;
     while (n != 0) {

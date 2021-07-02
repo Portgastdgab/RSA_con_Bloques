@@ -70,3 +70,4 @@ ZZ RandomPrime(int);
 
 void reagroup(ZZ, string &, int, int);
 
+void Swap(ZZ &,ZZ &);

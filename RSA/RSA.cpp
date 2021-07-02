@@ -59,52 +59,47 @@ void RSA::keysGenerator() {
     info();                               //Mostrar numero de bits y claves generadas
 }
 
+
 void RSA::decipher(string cipherCode) {
 
-    string plaintext, trans;
+    string trans = divideBlocks(cipherCode);
+    string plaintext;
 
-
-    int message_size, N_size, Extra, MS_letter;
-
-    message_size = plaintext.size();
-    N_size = ZZtoStr(n).size();
-    Extra = alphabet.size();
-    MS_letter = ZZtoStr(ZZ(Extra - 1)).size();
-
-    //DIVIDIR MENSAJE EN N DIGITOS
-
-    ZZ C, num;
-
-    for (int i = 0; i < cipherCode.size(); i += N_size) {
-
-        num = conv<ZZ>(cipherCode.substr(i, N_size).c_str());
-
-
-        C = modPow_TRC(num, d, n, p, q);
-
-        int C_size = N_size - 1 - ZZtoStr(C).size();
-
-        reagroup(C, trans, N_size, C_size);
-    }
-
+    int MS_letter ( ZZtoStr(ZZ(alphabet.size() - 1)).size());
+    ZZ num;
 
     //REAGRUPAR
-
     for (int i = 0; i < trans.size(); i += MS_letter) {
-
         num = conv<ZZ>(trans.substr(i, MS_letter).c_str());
-
-        if (num < Extra)
+        if (num < alphabet.size())
             plaintext += alphabet[to_int(num)];
-
     }
     message = plaintext;
 }
 
 
+string RSA:: divideBlocks(string cipherCode){
+
+    string  trans;
+    int N_size = ZZtoStr(n).size();
+    ZZ C, num;
+
+    //DIVIDIR MENSAJE EN BLOQUES DE TAMAÑO N
+    for (int i = 0; i < cipherCode.size(); i += N_size) {
+        num = conv<ZZ>(cipherCode.substr(i, N_size).c_str());
+//        C = modPow_TRC(num, d, n, p, q);
+        C = modPow(num, d,n);
+        int C_size = N_size - 1 - ZZtoStr(C).size();
+        reagroup(C, trans, N_size, C_size);
+    }
+    return trans;
+}
+
+
+
 void RSA::cipher(string plaintext ){
 
-   plaintext = blocks(plaintext);
+//   plaintext = blocks(plaintext);
 
     string cipherCode;
     ZZ C, num;
@@ -124,10 +119,73 @@ void RSA::cipher(string plaintext ){
 
 
 
-//
-//string RSA::firmaCipher(string msg,ZZ _e,ZZ _n){
-//
-//}
+string RSA::cipherSwap(string plaintext ,ZZ _e,ZZ _n){
+    // C = modPow(num, e, n);
+    Swap(e,_e); Swap(n,_n);
+    cipher(plaintext);
+    Swap(e,_e); Swap(n,_n);
+    return crypted_letter;
+}
+
+string RSA::decipherSwap(string plaintext ,ZZ _e, ZZ _n){
+    // C = modPow(num, e, n);
+    Swap(d,_e);  Swap(n,_n);
+    decipher(plaintext);
+    Swap(d,_e);  Swap(n,_n);
+    return message;
+}
+
+
+
+string RSA::completeZeros(string msg, ZZ _n){
+    int digit =ZZtoStr(_n).size()-1;
+    int c = to_int(mod(ZZ(msg.size()),ZZ(digit)));
+    string zero(digit-c,'0');
+    return zero+msg;
+}
+
+
+string RSA::firmaCipher(string msg,ZZ _e,ZZ _n){
+    string rubric = cipherSwap(blocks(msg),d,n); //07598
+    rubric = completeZeros(rubric,_n);//007598
+    //Firma
+    return  cipherSwap(rubric,_e,_n);
+}
+
+string RSA::descifroConE(string mensaje, ZZ nr, ZZ er){
+    int a= to_int(mod(ZZ(mensaje.size()),ZZ(ZZtoStr(nr).size())));
+    mensaje = mensaje.substr(a);
+    cout<<mensaje<<endl;
+    int di=(to_string(alphabet.size())).size();
+    string s=ZZtoStr(nr),st;int digitos=s.size();
+    for(int i=0;i<mensaje.size();i+=digitos){
+        ZZ num(conv<ZZ>(mensaje.substr(i,digitos).c_str()));
+        num=modPow(num,er,nr);
+        if(ZZtoStr(num).size()<digitos-1){
+            string ceros(digitos-1-ZZtoStr(num).size(),'0');
+            ceros+=ZZtoStr(num);
+            st+=ceros;
+        }
+        else
+            st+=ZZtoStr(num);
+    }
+
+    string letters;
+    for(int i=0;i<st.size();i+=di){
+        letters+=alphabet.at(stoi(st.substr(i,di)));
+    }
+
+    return letters;
+    //return salida;
+}
+
+
+string RSA::firmaDecipher(string msg,ZZ _e,ZZ _n){
+    string firma = divideBlocks(msg);
+//    return  decipherSwap(firma,_e,_n);
+    return descifroConE(firma,_n,_e);
+}
+
 
 
 string RSA:: blocks(string msg){

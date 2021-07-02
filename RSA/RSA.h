@@ -5,18 +5,19 @@ typedef long long int ll;
 class RSA {
 
 private:
-    ZZ d, p, q;
+
     int bits;
 
     void keysGenerator();
 
     void info();
 
-    string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890";
-//    string alphabet="abcdefghijklmnopqrstuvwxyz ";
+//    string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890";
+    string alphabet="abcdefghijklmnopqrstuvwxyz";
 
 public:
     ZZ e, n;
+    ZZ d, p, q;
     string message;
     string crypted_letter;
 
@@ -35,10 +36,21 @@ public:
 
     void show_decryption();             //muestra el atributo message
 
-    string firmaCipher(string ,ZZ,ZZ);
-
     string blocks(string);
 
-//    void cifrado(string ,ZZ ,ZZ );
+    string firmaCipher(string ,ZZ,ZZ);
+
+    string firmaDecipher(string ,ZZ,ZZ);
+
+    string cipherSwap(string plaintext ,ZZ _e ,ZZ _n);
+
+    string decipherSwap(string plaintext ,ZZ _e, ZZ _n);
+
+    string completeZeros(string,ZZ);
+
+    string divideBlocks(string );
+
+    string descifroConE(string mensaje, ZZ nr, ZZ er);
+
 
 };
