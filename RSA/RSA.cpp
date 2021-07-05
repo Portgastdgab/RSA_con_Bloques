@@ -1,5 +1,17 @@
 #include "RSA.h"
 
+string fileOpen(string file){
+    ifstream archivo(file.c_str());
+    string linea;
+    string text;
+    // Obtener línea de archivo, y almacenar contenido en "linea"
+    while (getline(archivo, linea)) {
+        // Lo vamos imprimiendo
+        text = text + linea;
+    }
+    return text;
+}
+
 //RECEPTOR N BITS
 RSA::RSA(int _bits) {
     bits = _bits;
