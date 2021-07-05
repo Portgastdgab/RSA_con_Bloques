@@ -56,7 +56,7 @@ void RSA::keysGenerator() {
     // 1 < d < phi -> inversa de gcd(e,phi)
     d = inverse(e, phi);
 
-    //info();                               //Mostrar numero de bits y claves generadas
+    info();                    //Mostrar numero de bits y claves generadas
 }
 
 
@@ -130,6 +130,8 @@ string RSA::cipherSwap(string plaintext ,ZZ _e,ZZ _n){
 string RSA::decipherSwap(string plaintext ,ZZ _e, ZZ _n){
     // C = modPow(num, e, n);
     Swap(d,_e);  Swap(n,_n);
+    int a= to_int(mod(ZZ(plaintext.size() ), ZZ(ZZtoStr(n).size())));
+    plaintext = plaintext.substr(a);
     decipher(plaintext);
     Swap(d,_e);  Swap(n,_n);
     return message;
@@ -146,46 +148,18 @@ string RSA::completeZeros(string msg, ZZ _n){
 
 
 string RSA::firmaCipher(string msg,ZZ _e,ZZ _n){
-    string rubric = cipherSwap(blocks(msg),d,n); //07598
-    rubric = completeZeros(rubric,_n);//007598
+    string rubric = cipherSwap(blocks(msg),d,n);
+    rubric = completeZeros(rubric,_n);
     //Firma
     return  cipherSwap(rubric,_e,_n);
 }
 
-string RSA::descifroConE(string mensaje, ZZ nr, ZZ er){
-    int a= to_int(mod(ZZ(mensaje.size()),ZZ(ZZtoStr(nr).size())));
-    mensaje = mensaje.substr(a);
-    cout<<mensaje<<endl;
-    int di=(to_string(alphabet.size())).size();
-    string s=ZZtoStr(nr),st;int digitos=s.size();
-    for(int i=0;i<mensaje.size();i+=digitos){
-        ZZ num(conv<ZZ>(mensaje.substr(i,digitos).c_str()));
-        num=modPow(num,er,nr);
-        if(ZZtoStr(num).size()<digitos-1){
-            string ceros(digitos-1-ZZtoStr(num).size(),'0');
-            ceros+=ZZtoStr(num);
-            st+=ceros;
-        }
-        else
-            st+=ZZtoStr(num);
-    }
-
-    string letters;
-    for(int i=0;i<st.size();i+=di){
-        letters+=alphabet.at(stoi(st.substr(i,di)));
-    }
-
-    return letters;
-    //return salida;
-}
 
 
 string RSA::firmaDecipher(string msg,ZZ _e,ZZ _n){
     string firma = divideBlocks(msg);
-//    return  decipherSwap(firma,_e,_n);
-    return descifroConE(firma,_n,_e);
+    return decipherSwap(firma,_e,_n);
 }
-
 
 
 string RSA:: blocks(string msg){

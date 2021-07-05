@@ -7,17 +7,16 @@ class RSA {
 private:
 
     int bits;
+    ZZ d, p, q;
 
     void keysGenerator();
 
     void info();
 
-//    string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890";
-    string alphabet="abcdefghijklmnopqrstuvwxyz";
+    string alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ,.-( )abcdefghijklmnopqrstuvwxyz<>*1234567890[]";
 
 public:
     ZZ e, n;
-    ZZ d, p, q;
     string message;
     string crypted_letter;
 
@@ -28,29 +27,27 @@ public:
 
     ~RSA();
 
-    void cipher(string);                //Cifra el mensaje, el cifrado se almacena en el atributo crypted_letter
+    void cipher(string);                                    //Cifra el mensaje, el cifrado se almacena en el atributo crypted_letter
 
-    void decipher(string);              //Descifrar el mensaje, el descifrado se almacena en el atributo message
+    void decipher(string);                                 //Descifrar el mensaje, el descifrado se almacena en el atributo message
 
-    void show_encryption();             //muestra el atributo crypted_letter
+    void show_encryption();                               //muestra el atributo crypted_letter
 
-    void show_decryption();             //muestra el atributo message
+    void show_decryption();                               //muestra el atributo message
 
-    string blocks(string);
+    string blocks(string);                               //forma un bloque para con los  respectivos indices del texto plano
 
-    string firmaCipher(string ,ZZ,ZZ);
+    string firmaCipher(string ,ZZ,ZZ);                   //cifra la firma con las claves publicas del receptor
 
-    string firmaDecipher(string ,ZZ,ZZ);
+    string firmaDecipher(string ,ZZ,ZZ);                 //descifra la firma con las claves publicas del emisor
 
-    string cipherSwap(string plaintext ,ZZ _e ,ZZ _n);
+    string cipherSwap(string plaintext ,ZZ _e ,ZZ _n);   //cifra con las claves e y n del receptor
 
-    string decipherSwap(string plaintext ,ZZ _e, ZZ _n);
+    string decipherSwap(string plaintext ,ZZ _e, ZZ _n); //descifra con las claves publicas del emisor
 
-    string completeZeros(string,ZZ);
+    string completeZeros(string,ZZ);                     //completa ceros
 
-    string divideBlocks(string );
-
-    string descifroConE(string mensaje, ZZ nr, ZZ er);
+    string divideBlocks(string );                        //divide el mensaje en bloque de tamaño N
 
 
 };
