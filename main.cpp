@@ -1,7 +1,7 @@
 #include "RSA/RSA.h"
 
 
-
+/*
 int main() {
 
     RSA receptor(512);                         //El receptor indica el numero de bits para generar claves
@@ -21,19 +21,19 @@ int main() {
 
     return 0;
 }
-
+*/
 
 
 /*------FIRMA---------*/
 
-/*
+
 int main(){
     string firmaDescifrada,firmaCifrada;
 
     RSA emisor(500);
     RSA receptor(100);
 
-    string msj = "coasdas";
+    string msj="[Aaron Misash Apaza Coaquira(201-10-48240,77569358) , Gabriel Santiago Choque Mayta (201-10-48248,70809056) , Geraldo Mark Romero Guillen (201-10-48119,77956852) , Jean Carlo Gino Condori Gonzales (201-10-47536,78957018) , Jose Enrique Vilca Campana (201-10-48429,79632845) ]";
 
     //Emisor
     firmaCifrada=emisor.firmaCipher(msj,receptor.e,receptor.n);
@@ -44,5 +44,5 @@ int main(){
     cout<<"\nfirma Descifrada: "<<firmaDescifrada;
 
 }
-*/
+
 
