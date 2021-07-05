@@ -1,7 +1,7 @@
 #include "RSA/RSA.h"
 
 
-/*
+
 int main() {
 
     RSA receptor(512);                         //El receptor indica el numero de bits para generar claves
@@ -21,12 +21,12 @@ int main() {
 
     return 0;
 }
-*/
+
 
 
 /*------FIRMA---------*/
 
-
+/*
 int main(){
     string firmaDescifrada,firmaCifrada;
 
@@ -44,5 +44,5 @@ int main(){
     cout<<"\nfirma Descifrada: "<<firmaDescifrada;
 
 }
-
+*/
 
