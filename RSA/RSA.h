@@ -7,6 +7,7 @@ class RSA {
 private:
 
     int bits;
+    ZZ d, p, q;
 
     void keysGenerator();
 
@@ -17,7 +18,6 @@ private:
 
 public:
     ZZ e, n;
-    ZZ d, p, q;
     string message;
     string crypted_letter;
 
@@ -49,8 +49,6 @@ public:
     string completeZeros(string,ZZ);
 
     string divideBlocks(string );
-
-    string descifroConE(string mensaje, ZZ nr, ZZ er);
 
 
 };

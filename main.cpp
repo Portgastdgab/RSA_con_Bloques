@@ -70,13 +70,6 @@ int main(){
     cout<<"\nfirma Cifrada: "<<firmaCifrada;
 
 
-
-
-
-
-
-
-
 }
 
 
