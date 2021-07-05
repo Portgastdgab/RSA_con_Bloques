@@ -87,8 +87,8 @@ string RSA:: divideBlocks(string cipherCode){
     //DIVIDIR MENSAJE EN BLOQUES DE TAMAÑO N
     for (int i = 0; i < cipherCode.size(); i += N_size) {
         num = conv<ZZ>(cipherCode.substr(i, N_size).c_str());
-        C = modPow_TRC(num, d, n, p, q);
-//        C = modPow(num, d,n);
+//        C = modPow_TRC(num, d, n, p, q);
+        C = modPow(num, d,n);
         int C_size = N_size - 1 - ZZtoStr(C).size();
         reagroup(C, trans, N_size, C_size);
     }
@@ -148,8 +148,8 @@ string RSA::completeZeros(string msg, ZZ _n){
 
 
 string RSA::firmaCipher(string msg,ZZ _e,ZZ _n){
-    string rubric = cipherSwap(blocks(msg),d,n); //07598
-    rubric = completeZeros(rubric,_n);//007598
+    string rubric = cipherSwap(blocks(msg),d,n);
+    rubric = completeZeros(rubric,_n);
     //Firma
     return  cipherSwap(rubric,_e,_n);
 }
